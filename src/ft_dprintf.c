@@ -14,7 +14,7 @@
 
 int	ft_dprintf(int fd, const char *format, ...)
 {
-git 	va_list ap;
+    va_list ap;
 	ssize_t ret;
 
 	ret = 0;
