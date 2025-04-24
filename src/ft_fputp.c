@@ -19,7 +19,7 @@ int	ft_fputp(unsigned long long unum, int fd)
 	char	*str;
 
 	if (unum == 0)
-        return (ft_fputs("(nil)", fd));
+		return (ft_fputs("(nil)", fd));
 	ret = 0;
 	w_ret = ft_fputs("0x", fd);
 	if (w_ret < 0)

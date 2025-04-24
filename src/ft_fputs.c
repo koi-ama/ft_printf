@@ -14,7 +14,7 @@
 
 int	ft_fputs(const char *s, int fd)
 {
-	int ret;
+	int	ret;
 
 	if (!s)
 		ret = write(fd, "(null)", 6);

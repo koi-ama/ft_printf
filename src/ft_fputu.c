@@ -14,8 +14,8 @@
 
 int	ft_fputu(unsigned int unum, int fd)
 {
-	char *str;
-	int ret;
+	char	*str;
+	int		ret;
 
 	str = ft_uitoa_base(unum, BASE_10);
 	if (!str)

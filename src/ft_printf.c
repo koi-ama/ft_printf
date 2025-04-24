@@ -14,8 +14,8 @@
 
 int	ft_printf(const char *format, ...)
 {
-	va_list ap;
-	ssize_t ret;
+	va_list	ap;
+	ssize_t	ret;
 
 	ret = 0;
 	va_start(ap, format);

@@ -14,8 +14,8 @@
 
 int	ft_fputi(int num, int fd)
 {
-	char *str;
-	int ret;
+	char	*str;
+	int		ret;
 
 	str = ft_itoa_base(num, BASE_10);
 	if (!str)

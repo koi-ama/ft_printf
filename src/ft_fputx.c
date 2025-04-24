@@ -27,8 +27,8 @@ char	*ft_toupperstr(char *str)
 
 int	ft_fputx(unsigned int unum, int fd, int c)
 {
-	char *str;
-	int ret;
+	char	*str;
+	int		ret;
 
 	str = ft_uitoa_base(unum, BASE_LOW_16);
 	if (!str)
