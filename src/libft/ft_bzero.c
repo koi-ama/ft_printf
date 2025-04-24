@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
+/*   By: kamakasu <kamakasu@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2024/04/18 20:14:47 by kamakasu          #+#    #+#             */
+/*   Updated: 2024/04/18 20:14:51 by kamakasu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-
-int	ft_printf(const char *format, ...)
+void	ft_bzero(void *dest, size_t n)
 {
-	va_list ap;
-	ssize_t ret;
+	unsigned char	*new_dest;
 
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
-		return (-1);
-	return (ret);
+	new_dest = dest;
+	while (n--)
+		*new_dest++ = 0;
 }

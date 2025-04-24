@@ -1,42 +1,47 @@
-NAME    = libftprintf.a
-CC      = cc
-CFLAGS  = -Wall -Wextra -Werror
-AR      = ar rcs
-RM      = rm -f
+NAME = libftprintf.a
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
+AR = ar rcs
+INCLUDES = -I ./includes
 
-# Mandatory source files (placed directly in src/)
-SRC     = src/ft_printf.c \
-          src/ft_printf_conversion.c \
-          src/ft_printf_print.c \
-          src/ft_printf_number.c
-OBJ     = $(SRC:.c=.o)
+SRCS_DIR = ./src
+SRCS    = $(wildcard $(SRCS_DIR)/*.c)
 
-# Bonus source files (placed directly in src/)
-BONUS_SRC = src/conversion_bonus.c \
-            src/bonus_int_helpers.c \
-            src/bonus_conv_extra.c
-BONUS_OBJ = $(BONUS_SRC:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
-INCLUDES = includes
+LIBFT_PATH = ./src/libft/
+LIBFT_NAME = libft.a
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
+RESET = \033[0m
+BOLD = \033[1m
+YELLOW = \033[93m
+LIGHT_BLUE = \033[94m
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
-
-bonus: $(OBJ) $(BONUS_OBJ)
-	$(AR) $(NAME) $(OBJ) $(BONUS_OBJ)
+.c.o:
+	@echo "$(BOLD)$(YELLOW)Compiling $<...$(RESET)"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	
+$(NAME): $(OBJS)
+	@echo "$(BOLD)$(LIGHT_BLUE)Linking objects...$(RESET)"
+	@$(MAKE) -C $(LIBFT_PATH)
+	@mv $(LIBFT_PATH)/$(LIBFT_NAME) $(NAME)
+	@$(AR) $(NAME) $(OBJS)
+	@echo "$(BOLD)$(LIGHT_BLUE)$(NAME) created successfully!$(RESET)"
 
 clean:
-	$(RM) $(OBJ) $(BONUS_OBJ)
+	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning objects...$(RESET)"
+	@$(MAKE) -C $(LIBFT_PATH) clean
+	@$(RM) $(OBJS)
+	@echo "$(BOLD)$(LIGHT_BLUE)Complete clean!$(RESET)"
 
 fclean: clean
-	$(RM) $(NAME)
+	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
+	@$(RM) $(NAME)
+	@echo "$(BOLD)$(LIGHT_BLUE)Complete fclean!$(RESET)"
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
-
+.PHONY: all clean fclean re

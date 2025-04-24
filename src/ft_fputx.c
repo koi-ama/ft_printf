@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_fputx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2025-04-24 07:32:07 by koiama            #+#    #+#             */
+/*   Updated: 2025-04-24 07:32:07 by koiama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_toupperstr(char *str)
 {
-	va_list ap;
-	ssize_t ret;
+	size_t	index;
 
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
+	index = 0;
+	while (str[index])
+	{
+		str[index] = ft_toupper(str[index]);
+		index++;
+	}
+	return (str);
+}
+
+int	ft_fputx(unsigned int unum, int fd, int c)
+{
+	char *str;
+	int ret;
+
+	str = ft_uitoa_base(unum, BASE_LOW_16);
+	if (!str)
 		return (-1);
+	if (c == 'X')
+		ft_toupperstr(str);
+	ret = ft_fputs(str, fd);
+	free(str);
 	return (ret);
 }

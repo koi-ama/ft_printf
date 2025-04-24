@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
+/*   By: kamakasu <kamakasu@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2024/04/20 14:40:23 by kamakasu          #+#    #+#             */
+/*   Updated: 2024/04/20 14:51:06 by kamakasu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-
-int	ft_printf(const char *format, ...)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	va_list ap;
-	ssize_t ret;
-
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
-		return (-1);
-	return (ret);
+	while (n && *s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	if (n)
+		return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	else
+		return (0);
 }

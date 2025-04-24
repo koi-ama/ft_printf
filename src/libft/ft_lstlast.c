@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
+/*   By: kamakasu <kamakasu@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2024/05/05 17:24:23 by kamakasu          #+#    #+#             */
+/*   Updated: 2024/05/05 17:27:38 by kamakasu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-
-int	ft_printf(const char *format, ...)
+t_list	*ft_lstlast(t_list *lst)
 {
-	va_list ap;
-	ssize_t ret;
-
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
-		return (-1);
-	return (ret);
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

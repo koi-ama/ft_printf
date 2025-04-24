@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
+/*   By: kamakasu <kamakasu@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2024/04/18 20:14:21 by kamakasu          #+#    #+#             */
+/*   Updated: 2024/04/18 20:14:27 by kamakasu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "ft_printf.h"
-
-int	ft_printf(const char *format, ...)
+int	ft_isalnum(int c)
 {
-	va_list ap;
-	ssize_t ret;
-
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
-		return (-1);
-	return (ret);
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (1);
+	return (0);
 }

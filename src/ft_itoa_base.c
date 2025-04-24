@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2025-04-24 08:17:19 by koiama            #+#    #+#             */
+/*   Updated: 2025-04-24 08:17:19 by koiama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_itoa_base(int n, char *base)
 {
-	va_list ap;
-	ssize_t ret;
+	long long	ln;
+	char		*ret;
+	size_t		size;
+	size_t		base_len;
 
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
-		return (-1);
+	ln = n;
+	base_len = ft_strlen(base);
+	size = ft_isize(n, base_len);
+	ret = (char *)malloc(sizeof(char) * (size + 1));
+	if (!ret)
+		return (NULL);
+	ret[size--] = '\0';
+	if (ln < 0)
+	{
+		ln = -ln;
+		ret[0] = '-';
+	}
+	while (ln >= (long long)base_len)
+	{
+		ret[size--] = base[ln % base_len];
+		ln /= base_len;
+	}
+	ret[size] = base[ln % base_len];
 	return (ret);
 }

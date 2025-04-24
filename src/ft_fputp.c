@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_fputp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2025-04-24 07:32:15 by koiama            #+#    #+#             */
+/*   Updated: 2025-04-24 07:32:15 by koiama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_fputp(unsigned long long unum, int fd)
 {
-	va_list ap;
-	ssize_t ret;
+	size_t	ret;
+	size_t	w_ret;
+	char	*str;
 
 	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
+	w_ret = ft_fputs("0x", fd);
+	if (w_ret < 0)
 		return (-1);
+	ret += w_ret;
+	str = ft_ulltoa_base(unum, BASE_LOW_16);
+	if (!str)
+		return (-1);
+	w_ret = ft_fputs(str, fd);
+	if (w_ret < 0)
+		return (-1);
+	ret += w_ret;
+	free(str);
 	return (ret);
 }

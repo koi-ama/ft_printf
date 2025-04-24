@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_fputs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2025-03-29 22:42:11 by koiama            #+#    #+#             */
+/*   Updated: 2025-03-29 22:42:11 by koiama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_fputs(const char *s, int fd)
 {
-	va_list ap;
-	ssize_t ret;
+	int ret;
 
-	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
+	if (!s)
+		ret = write(fd, "(null)", 6);
+	else
+		ret = write(fd, s, ft_strlen(s));
 	if (ret < 0)
 		return (-1);
 	return (ret);

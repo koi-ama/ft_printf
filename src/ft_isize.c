@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_isize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: koiama <koiama@student.42.fr>              #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-20 09:27:35 by koiama            #+#    #+#             */
-/*   Updated: 2025-03-20 09:27:35 by koiama           ###   ########.fr       */
+/*   Created: 2025-04-24 08:17:17 by koiama            #+#    #+#             */
+/*   Updated: 2025-04-24 08:17:17 by koiama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+size_t	ft_isize(int n, int base)
 {
-	va_list ap;
-	ssize_t ret;
+	long long	ln;
+	size_t		ret;
 
+	ln = n;
+	if (n == 0)
+		return (1);
 	ret = 0;
-	va_start(ap, format);
-	ret = ft_vprintf(format, ap);
-	va_end(ap);
-	if (ret < 0)
-		return (-1);
+	if (ln < 0)
+	{
+		ln = -ln;
+		ret++;
+	}
+	while (ln != 0)
+	{
+		ret++;
+		ln /= base;
+	}
 	return (ret);
 }
