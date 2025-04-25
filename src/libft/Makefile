@@ -9,8 +9,8 @@ SRCS = $(wildcard *.c)
 
 OBJS = $(SRCS:.c=.o)
 
-.c.o: $(OBJS)
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES_PATH)
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES_PATH)
 
 all: $(NAME)
 
