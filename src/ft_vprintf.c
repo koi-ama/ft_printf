@@ -37,31 +37,35 @@ int	ft_printf_switch(const char *format, va_list ap, int fd)
 		return (-1);
 }
 
+static int	process_vprintf_char(const char **fmt, va_list ap_copy, int *w_ret)
+{
+	if (**fmt == '%')
+	{
+		(*fmt)++;
+		*w_ret = ft_printf_switch(*fmt, ap_copy, STDOUT_FILENO);
+	}
+	else
+	{
+		*w_ret = ft_putc(**fmt, STDOUT_FILENO);
+	}
+	if (*w_ret < 0)
+		return (-1);
+	return (0);
+}
+
 int	ft_vprintf(const char *format, va_list ap)
 {
-	int	ret;
-	int	w_ret;
-	va_list ap_copy;
+	int		ret;
+	int		w_ret;
+	va_list	ap_copy;
 
 	va_copy(ap_copy, ap);
 	ret = 0;
 	while (*format)
 	{
-		if (*format == '%')
-		{
-			format++;
-			w_ret = ft_printf_switch(format, ap_copy, STDOUT_FILENO);
-			if (w_ret < 0)
-				return (-1);
-			ret += w_ret;
-		}
-		else
-		{
-			w_ret = ft_putc(*format, STDOUT_FILENO);
-			if (w_ret < 0)
-				return (-1);
-			ret += w_ret;
-		}
+		if (process_vprintf_char(&format, ap_copy, &w_ret) < 0)
+			return (-1);
+		ret += w_ret;
 		format++;
 	}
 	va_end(ap_copy);
